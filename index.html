@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/broadsheet-c2817225-55b8-44b3-bb86-ee769e1e6df9/styles.css">
+<script src="_ds/broadsheet-c2817225-55b8-44b3-bb86-ee769e1e6df9/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  body { background: var(--color-bg); }
+  a:hover { color: var(--color-accent-700); }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+  @keyframes stampLand {
+    0%   { opacity: 0; transform: rotate(-9deg) scale(1.55); }
+    55%  { opacity: 1; transform: rotate(-3.2deg) scale(0.955); }
+    72%  { transform: rotate(-4.4deg) scale(1.018); }
+    100% { opacity: 1; transform: rotate(-3.8deg) scale(1); }
+  }
+  .stamp { opacity: 0; transform: rotate(-9deg) scale(1.55); }
+  .stamp.landed { animation: stampLand 460ms cubic-bezier(.2,.8,.3,1) forwards; }
+  @media (prefers-reduced-motion: reduce) {
+    .stamp { opacity: 1; transform: rotate(-3.8deg); }
+    .stamp.landed { animation: none; }
+  }
+  @media (max-width: 760px) {
+    [data-roll] { padding: 34px 22px 90px !important; }
+    [data-mast] { flex-direction: column !important; align-items: flex-start !important; gap: 26px !important; }
+    [data-h1] { font-size: 36px !important; }
+    [data-item-head] { flex-direction: column !important; align-items: flex-start !important; gap: 18px !important; }
+    [data-emphead] { flex-direction: column !important; align-items: flex-start !important; gap: 8px !important; }
+    [data-pdr] { grid-template-columns: 1fr !important; }
+    [data-stackgrid], [data-impact] { grid-template-columns: 1fr !important; }
+    [data-flowrow], [data-flowhead] { grid-template-columns: 30px 1fr !important; }
+    [data-tierrow] { grid-template-columns: 76px 1fr !important; }
+    [data-tierrow] > span:nth-child(3) { grid-column: 2 !important; }
+    [data-flowrow] > span:nth-child(3), [data-flowhead] > span:nth-child(3) { grid-column: 2 !important; }
+    [data-ledgerrow] { grid-template-columns: 1fr !important; row-gap: 4px !important; }
+  }
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="background: var(--color-bg); min-height: 100vh; display: flex; justify-content: center;">
+  <div data-roll style="width: 100%; max-width: 780px; padding: 70px 40px 140px; background: var(--color-bg);">
+
+    <header data-mast style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; padding-bottom: 22px; border-bottom: 3px solid var(--color-text);">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: var(--color-neutral-700);">STATEMENT OF WORK</div>
+        <h1 data-h1 style="margin: 0; font-size: 46px; line-height: 1.02; letter-spacing: -0.02em;">Adarsh Singh</h1>
+        <div style="font-size: 17px; font-style: italic; color: var(--color-neutral-800);">Backend Engineer · Gurugram, India</div>
+        <div style="display: flex; align-items: center; gap: 9px; margin-top: 6px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.06em; color: var(--color-accent-700);">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--color-accent-700);"></span>
+          <span>OPEN TO BACKEND ROLES · 2 YRS PRODUCTION</span>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; text-align: right; font-family: 'IBM Plex Mono', monospace;">
+        <div style="font-size: 11px; letter-spacing: 0.1em; color: var(--color-neutral-600);">COMMITTED TO PRODUCTION</div>
+        <div style="font-size: 40px; line-height: 1; font-weight: 500; color: var(--color-accent-700); font-variant-numeric: tabular-nums;">{{ tally }}</div>
+        <div style="font-size: 11px; color: var(--color-neutral-600);">systems · since jul 2024</div>
+      </div>
+    </header>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 6px 30px; padding: 12px 0 0; font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--color-neutral-700); border-top: 1px solid var(--color-text); margin-top: 3px;">
+      <span>REF ADS-BE-2026</span>
+      <span>PERIOD JUL 2024 — PRESENT</span>
+      <span>MATCHBEST SOFTWARE / XELTA.AI</span>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; padding: 20px 0 0;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600);">GATEWAYS IN PRODUCTION</span>
+      <sc-for list="{{ gateways }}" as="g" hint-placeholder-count="5">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.02em; color: var(--color-accent-700); padding: 4px 10px; border: 1px solid var(--color-accent-700); border-radius: var(--radius-sm);">{{ g }}</span>
+      </sc-for>
+    </div>
+
+    <section style="padding: 40px 0 0;">
+      <p style="margin: 0; font-size: 24px; line-height: 1.42; max-width: 30ch; text-wrap: pretty;">Two years building payment infrastructure, real-time booking engines, and AI media pipelines in production.</p>
+      <p style="margin: 20px 0 0; font-size: 16px; line-height: 1.6; color: var(--color-neutral-800); max-width: 56ch; text-wrap: pretty;">The recurring problem in all of it is the same one: money and inventory must move exactly once. Two-Phase Commit reservations, distributed locks, idempotent job pipelines.</p>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 30px;">
+        <a href="#ledger" class="btn btn-primary">View the ledger</a>
+        <a href="#remittance" class="btn btn-secondary">Resume &amp; contact</a>
+      </div>
+
+      <div data-impact style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 46px; margin-top: 44px; border-top: 1px solid var(--color-text); padding-top: 4px;">
+        <sc-for list="{{ impact }}" as="m" hint-placeholder-count="4">
+          <div style="display: grid; grid-template-columns: 96px 1fr; gap: 16px; align-items: baseline; padding: 14px 0; border-bottom: 1px dashed var(--color-neutral-300);">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 21px; font-weight: 500; color: var(--color-accent-700); font-variant-numeric: tabular-nums; line-height: 1.1;">{{ m.figure }}</span>
+            <span style="font-size: 14.5px; line-height: 1.45; color: var(--color-neutral-900);">{{ m.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <div style="height: 0; border-top: 2px dashed var(--color-neutral-400); margin: 56px 0 0;"></div>
+
+    <section id="ledger" style="padding-top: 40px;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--color-neutral-700); padding-bottom: 10px; border-bottom: 1px solid var(--color-neutral-300);">
+        <span>LINE ITEMS</span>
+        <span>STATUS</span>
+      </div>
+
+      <sc-for list="{{ groups }}" as="grp" hint-placeholder-count="2">
+      <div data-employer style="padding-top: 30px;">
+        <div data-emphead style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; padding-bottom: 10px; border-bottom: 2px solid var(--color-text);">
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <h2 style="margin: 0; font-size: 22px; letter-spacing: -0.012em;">{{ grp.company }}</h2>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--color-neutral-700); letter-spacing: 0.03em;">{{ grp.role }}</span>
+          </div>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--color-neutral-700); letter-spacing: 0.06em; white-space: nowrap;">{{ grp.period }}</span>
+        </div>
+      </div>
+      <sc-for list="{{ grp.items }}" as="it" hint-placeholder-count="3">
+        <article style="padding: 30px 0 36px; border-bottom: 1px solid var(--color-neutral-300);">
+          <div data-item-head style="display: flex; align-items: flex-start; justify-content: space-between; gap: 34px;">
+            <div style="display: flex; gap: 18px; align-items: flex-start; min-width: 0;">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--color-neutral-500); padding-top: 9px; font-variant-numeric: tabular-nums;">{{ it.no }}</span>
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <h2 style="margin: 0; font-size: 28px; line-height: 1.14; letter-spacing: -0.015em;">{{ it.title }}</h2>
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--color-neutral-700); letter-spacing: 0.04em;">{{ it.org }}</div>
+                <div style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--color-accent-700); letter-spacing: 0.02em;">{{ it.headline }}</div>
+              </div>
+            </div>
+            <div data-stamp-i="{{ it.i }}" class="stamp" style="flex: 0 0 auto; border: 2.5px solid var(--color-accent-700); border-radius: 2px; padding: 7px 13px 6px; display: flex; flex-direction: column; align-items: center; gap: 2px; color: var(--color-accent-700);">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 15px; font-weight: 600; letter-spacing: 0.16em;">COMMITTED</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; letter-spacing: 0.1em; opacity: 0.85;">{{ it.stampDate }}</span>
+            </div>
+          </div>
+
+          <div data-pdr style="display: grid; grid-template-columns: 88px 1fr; gap: 14px 22px; margin: 26px 0 0;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600); padding-top: 5px;">PROBLEM</span>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--color-neutral-900); text-wrap: pretty;">{{ it.problem }}</p>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600); padding-top: 5px;">DECISION</span>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.6; color: var(--color-neutral-900); text-wrap: pretty;">{{ it.decision }}</p>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-accent-700); padding-top: 5px;">RESULT</span>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6; font-style: italic; text-wrap: pretty;">{{ it.result }}</p>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: 22px; padding-left: 0;">
+            <sc-for list="{{ it.stack }}" as="t" hint-placeholder-count="4">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--color-neutral-800); padding: 3px 8px; background: var(--color-neutral-200); border-radius: var(--radius-sm);">{{ t }}</span>
+            </sc-for>
+          </div>
+        </article>
+      </sc-for>
+      </sc-for>
+
+      <sc-if value="{{ showAlso }}" hint-placeholder-val="{{ true }}">
+      <div style="padding: 34px 0 0;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--color-neutral-700); padding-bottom: 12px;">ALSO ON THE LEDGER</div>
+        <div style="display: flex; flex-direction: column;">
+          <div data-ledgerrow style="display: grid; grid-template-columns: 1fr 210px; gap: 22px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300);">
+            <span style="font-size: 16px;">Xelta SmartOps — observability platform: QA Guardian, XLP logging, Heartbeat monitoring</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--color-neutral-700);">TypeScript · Turborepo</span>
+          </div>
+          <div data-ledgerrow style="display: grid; grid-template-columns: 1fr 210px; gap: 22px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300);">
+            <span style="font-size: 16px;">RBAC admin dashboard — role-scoped approval workflows</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--color-neutral-700);">Tourmates</span>
+          </div>
+          <div data-ledgerrow style="display: grid; grid-template-columns: 1fr 210px; gap: 22px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300);">
+            <span style="font-size: 16px;">gRPC / Protobuf migration — replaced internal REST/JSON service calls</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--color-neutral-700);">Tourmates</span>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+    </section>
+
+    <div style="height: 0; border-top: 2px dashed var(--color-neutral-400); margin: 56px 0 0;"></div>
+
+    <section id="design" style="padding-top: 40px;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--color-neutral-700); padding-bottom: 14px; border-bottom: 1px solid var(--color-neutral-300);">
+        <span>SCHEDULE A — SYSTEM DESIGN</span>
+        <span>BOOKING ENGINE</span>
+      </div>
+
+      <h2 style="margin: 30px 0 8px; font-size: 27px; letter-spacing: -0.015em;">Inventory flow — OTA booking path</h2>
+      <p style="margin: 0 0 26px; font-size: 15.5px; line-height: 1.6; color: var(--color-neutral-800); max-width: 62ch; text-wrap: pretty;">A room is a finite, contended resource: two guests can hit the same last unit in the same millisecond. The path below is written so every hop has one job and one guarantee.</p>
+
+      <div style="display: grid; grid-template-columns: 30px 190px 1fr; gap: 0 18px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600); padding-bottom: 9px; border-bottom: 1px solid var(--color-text);" data-flowhead>
+        <span>#</span><span>HOP</span><span>GUARANTEE</span>
+      </div>
+      <sc-for list="{{ otaFlow }}" as="s" hint-placeholder-count="7">
+        <div data-flowrow style="display: grid; grid-template-columns: 30px 190px 1fr; gap: 8px 18px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--color-neutral-500); font-variant-numeric: tabular-nums;">{{ s.n }}</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--color-text); letter-spacing: 0.01em;">{{ s.hop }}</span>
+          <span style="font-size: 15px; line-height: 1.55; color: var(--color-neutral-900); text-wrap: pretty;">{{ s.note }}</span>
+        </div>
+      </sc-for>
+
+      <div style="margin-top: 34px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600); padding-bottom: 14px;">INDEX TIERING — CITIES PER ELASTICSEARCH INDEX</div>
+        <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="3">
+          <div data-tierrow style="display: grid; grid-template-columns: 76px 150px 1fr; gap: 8px 18px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent-700);">{{ t.tier }}</span>
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--color-text);">{{ t.split }}</span>
+            <span style="font-size: 15px; line-height: 1.55; color: var(--color-neutral-900); text-wrap: pretty;">{{ t.why }}</span>
+          </div>
+        </sc-for>
+        <p style="margin: 14px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--color-neutral-800); max-width: 62ch;">Tiering by demand rather than uniformly means a search only ever scans the cities it could possibly return, so the busiest markets stay fast without over-provisioning the long tail.</p>
+      </div>
+
+      <div style="margin-top: 34px;">
+        <div style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600); padding-bottom: 14px;">RESERVATION STATE MACHINE</div>
+        <div data-states style="display: flex; flex-wrap: wrap; align-items: stretch; gap: 10px;">
+          <sc-for list="{{ states }}" as="st" hint-placeholder-count="5">
+            <div style="display: flex; flex-direction: column; gap: 5px; padding: 11px 14px; border: 1px solid var(--color-neutral-400); border-radius: var(--radius-sm); min-width: 132px; background: var(--color-bg);">
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; color: var(--color-accent-700);">{{ st.name }}</span>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; line-height: 1.45; color: var(--color-neutral-700);">{{ st.via }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p style="margin: 14px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--color-neutral-800); max-width: 62ch;">The lock is soft and self-healing: TTL auto-release returns abandoned carts to inventory with no cleanup job, and every write carries the reservation id as its idempotency key, so a retried webhook is a no-op rather than a second booking.</p>
+      </div>
+
+      <h2 style="margin: 46px 0 8px; font-size: 27px; letter-spacing: -0.015em;">CMS write path — one source of truth</h2>
+      <p style="margin: 0 0 24px; font-size: 15.5px; line-height: 1.6; color: var(--color-neutral-800); max-width: 62ch; text-wrap: pretty;">Operations edits inventory in the CMS; the OTA reads a search index. Those two must never disagree for long, so writes land in Postgres first and propagate outward through Kafka — the index is a derived view, never an authority.</p>
+      <sc-for list="{{ cmsFlow }}" as="s" hint-placeholder-count="5">
+        <div data-flowrow style="display: grid; grid-template-columns: 30px 190px 1fr; gap: 8px 18px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--color-neutral-500); font-variant-numeric: tabular-nums;">{{ s.n }}</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px; color: var(--color-text); letter-spacing: 0.01em;">{{ s.hop }}</span>
+          <span style="font-size: 15px; line-height: 1.55; color: var(--color-neutral-900); text-wrap: pretty;">{{ s.note }}</span>
+        </div>
+      </sc-for>
+
+      <h2 style="margin: 46px 0 8px; font-size: 27px; letter-spacing: -0.015em;">RBAC model</h2>
+      <p style="margin: 0 0 22px; font-size: 15.5px; line-height: 1.6; color: var(--color-neutral-800); max-width: 62ch; text-wrap: pretty;">Roles carry scoped permissions, and anything that moves money or inventory needs a second pair of eyes. Approvals are a state machine on the record, not a flag a single admin can flip.</p>
+      <div style="overflow-x: auto;">
+        <table class="table" style="min-width: 560px; font-size: 14.5px;">
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Scope</th>
+              <th>Inventory</th>
+              <th>Approvals</th>
+            </tr>
+          </thead>
+          <tbody>
+            <sc-for list="{{ rbac }}" as="r" hint-placeholder-count="4">
+              <tr>
+                <td style="font-family: 'IBM Plex Mono', monospace; font-size: 12.5px;">{{ r.role }}</td>
+                <td style="color: var(--color-neutral-800);">{{ r.scope }}</td>
+                <td style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--color-neutral-800);">{{ r.inventory }}</td>
+                <td style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--color-neutral-800);">{{ r.approvals }}</td>
+              </tr>
+            </sc-for>
+          </tbody>
+        </table>
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: 18px;">
+        <sc-for list="{{ rbacTags }}" as="t" hint-placeholder-count="5">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.04em; color: var(--color-neutral-800); padding: 3px 8px; background: var(--color-neutral-200); border-radius: var(--radius-sm);">{{ t }}</span>
+        </sc-for>
+      </div>
+    </section>
+
+    <div style="height: 0; border-top: 2px dashed var(--color-neutral-400); margin: 56px 0 0;"></div>
+
+    <section style="padding-top: 40px;">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--color-neutral-700); padding-bottom: 14px; border-bottom: 1px solid var(--color-neutral-300);">
+        <span>STANDING INVENTORY</span>
+        <span>DAILY USE</span>
+      </div>
+      <div data-stackgrid style="display: grid; grid-template-columns: 1fr 1fr; gap: 0 46px;">
+        <sc-for list="{{ stack }}" as="g" hint-placeholder-count="6">
+          <div style="display: grid; grid-template-columns: 118px 1fr; gap: 18px; padding: 15px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600);">{{ g.label }}</span>
+            <span style="font-size: 15.5px; line-height: 1.5;">{{ g.value }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <div style="height: 0; border-top: 2px dashed var(--color-neutral-400); margin: 56px 0 0;"></div>
+
+    <footer id="remittance" style="padding-top: 40px;">
+      <div style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--color-neutral-700); padding-bottom: 6px;">REMITTANCE DETAILS</div>
+      <div data-ledgerrow style="display: grid; grid-template-columns: 118px 1fr; gap: 18px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600);">RESUME</span>
+        <a href="uploads/Adarsh_Singh_Resume.pdf" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;">Adarsh_Singh_Resume.pdf</a>
+      </div>
+      <div style="display: flex; flex-direction: column;">
+        <div data-ledgerrow style="display: grid; grid-template-columns: 118px 1fr; gap: 18px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600);">EMAIL</span>
+          <a href="mailto:adarshsingh705@gmail.com" style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;">adarshsingh705@gmail.com</a>
+        </div>
+        <div data-ledgerrow style="display: grid; grid-template-columns: 118px 1fr; gap: 18px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600);">PHONE</span>
+          <a href="tel:+917292007237" style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;">+91 72920 07237</a>
+        </div>
+        <div data-ledgerrow style="display: grid; grid-template-columns: 118px 1fr; gap: 18px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600);">GITHUB</span>
+          <a href="https://github.com/adarshsingh705" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;">github.com/adarshsingh705</a>
+        </div>
+        <div data-ledgerrow style="display: grid; grid-template-columns: 118px 1fr; gap: 18px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600);">LINKEDIN</span>
+          <a href="https://linkedin.com/in/adarsh-singh-02b01313b" target="_blank" rel="noopener" style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;">linkedin.com/in/adarsh-singh-02b01313b</a>
+        </div>
+        <div data-ledgerrow style="display: grid; grid-template-columns: 118px 1fr; gap: 18px; padding: 13px 0; border-bottom: 1px dashed var(--color-neutral-300); align-items: baseline;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.1em; color: var(--color-neutral-600);">LOCATION</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 14px;">Gurugram, India · UTC+5:30</span>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 26px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; color: var(--color-neutral-600);">
+        <span>END OF STATEMENT</span>
+        <span>AVAILABLE FOR BACKEND / DISTRIBUTED SYSTEMS ROLES</span>
+      </div>
+    </footer>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAlsoOnLedger&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Ledger&quot;}}">
+const ITEMS = [
+  {
+    no: "001",
+    title: "Payments & Credit Infrastructure",
+    org: "Matchbest Software / xelta.ai",
+    stampDate: "2026",
+    headline: "ZERO OVER-CONSUMPTION INCIDENTS · 5 GATEWAYS",
+    problem: "Concurrent requests could over-consume a user's credit balance, and retried webhooks across five payment gateways risked charging twice.",
+    decision: "A Two-Phase Commit reservation flow — RESERVE, COMMIT, RELEASE — with row-level locking and unique job IDs carrying idempotency end to end.",
+    result: "Zero credit over-consumption incidents in production. One idempotent BullMQ pipeline handles Stripe, PayPal, Razorpay, Apple IAP and Google Play, and Socket.io pushes every RESERVE and COMMIT to the client, so the balance a user sees is the balance the ledger holds.",
+    stack: ["NestJS", "Prisma", "PostgreSQL", "Redis", "BullMQ", "Socket.io"]
+  },
+  {
+    no: "002",
+    title: "PixelCut — AI Video Editor",
+    org: "Matchbest Software / xelta.ai",
+    stampDate: "2026",
+    headline: "UI LAG DOWN ~70% · 9 AI EDIT TYPES",
+    problem: "Video decoding and rendering ran on the main thread, freezing the interface on low-end laptops.",
+    decision: "Moved the work into Web Workers with OffscreenCanvas, and split AI editing across four coordinated BullMQ workers.",
+    result: "Cut UI lag roughly 70%. Nine AI edit types route to Gemini through a single prompt-templated layer, covered by 12+ deterministic test suites.",
+    stack: ["Next.js", "Web Workers", "BullMQ", "FFmpeg", "AssemblyAI", "Gemini"]
+  },
+  {
+    no: "003",
+    title: "Search & Booking Engine",
+    org: "Tourmates",
+    stampDate: "2025",
+    headline: "SEARCH LATENCY DOWN 40% · ZERO DOUBLE-BOOKINGS",
+    problem: "Search slowed down at scale, and concurrent bookings could double-book the same room.",
+    decision: "A Golang search service over Elasticsearch with state-wise sharding; soft-lock reservations via Redis Redlock, atomic Lua scripts and TTL auto-release; Kafka syncing inventory into the search index.",
+    result: "Search latency down 40%, indexing lag reduced over 90%, and zero double-bookings.",
+    stack: ["Golang", "Elasticsearch", "Redis Redlock", "Kafka", "gRPC"]
+  },
+  {
+    no: "004",
+    title: "Push Notification Service",
+    org: "Matchbest Software / xelta.ai",
+    stampDate: "2026",
+    headline: "ONE SHARED SERVICE · PLATFORM-WIDE",
+    problem: "Every microservice needed to send targeted Android and iOS notifications, with no shared way to do it.",
+    decision: "A standalone push microservice behind a common interface, with a multi-criteria filter engine across country, device and app version.",
+    result: "One shared service now powers targeted announcements platform-wide.",
+    stack: ["Node.js", "FCM", "APNs"]
+  }
+];
+
+const GATEWAYS = ["Stripe", "PayPal", "Razorpay", "Apple IAP", "Google Play"];
+
+const EMPLOYERS = [
+  { company: "Matchbest Software", role: "Backend Engineer · Node.js / NestJS / TypeScript · xelta.ai", period: "JAN 2026 — PRESENT", match: "Matchbest" },
+  { company: "Tourmates", role: "Backend Engineer · Node.js / Golang · intern to full-time", period: "JUL 2024 — JAN 2026", match: "Tourmates" }
+];
+
+let _n = 0;
+const GROUPS = EMPLOYERS.map((g) => ({
+  company: g.company,
+  role: g.role,
+  period: g.period,
+  items: ITEMS.filter((it) => it.org.indexOf(g.match) === 0).map((it) => {
+    _n += 1;
+    return Object.assign({}, it, { i: _n - 1, no: String(_n).padStart(3, "0") });
+  })
+}));
+
+const OTA_FLOW = [
+  { n: "01", hop: "OTA client / partner API", note: "Search request enters through the gateway with tenant and locale context; auth resolves the caller's role before anything touches inventory." },
+  { n: "02", hop: "Search service · Golang", note: "The query is routed to one tiered Elasticsearch index instead of a global one — a high-traffic city has its own index, quieter cities share one. Fuzzy matching handles typos; Redis fronts hot queries. Read-only: it never writes inventory." },
+  { n: "03", hop: "Availability check", note: "Postgres is asked only for the shortlisted properties, so the expensive consistent read happens once, not per result." },
+  { n: "04", hop: "Soft lock · Redis Redlock", note: "An atomic Lua script claims the unit and writes a reservation with a TTL. The script is the critical section: check and claim cannot interleave." },
+  { n: "05", hop: "XeltaCredit · Two-Phase Commit", note: "RESERVE holds the amount, COMMIT captures on gateway confirmation, RELEASE unwinds on failure. Row-level locking plus a unique job id makes retries idempotent." },
+  { n: "06", hop: "Booking commit", note: "Booking row and inventory decrement land in one Postgres transaction; the soft lock is only dropped after the commit succeeds." },
+  { n: "07", hop: "Kafka · index sync", note: "The commit emits an inventory event; consumers reindex Elasticsearch in near real time, keeping search honest without dual writes." }
+];
+
+const TIERS = [
+  { tier: "TIER A", split: "1 city · 1 index", why: "Highest-demand metros. A dedicated index keeps their shard small and their query path independent of everyone else's traffic." },
+  { tier: "TIER B", split: "5 cities · 1 index", why: "Mid-demand cities grouped so shard count stays sane without inflating any single index." },
+  { tier: "TIER C", split: "10 cities · 1 index", why: "Long-tail cities batched together — cheap to hold, still fast because the working set is small." }
+];
+
+const CMS_FLOW = [
+  { n: "01", hop: "CMS · hotel onboarding", note: "Operations creates the property and its room types; the record stays unpublished until it is verified, so nothing half-entered can ever be searched." },
+  { n: "02", hop: "Mark verified", note: "One approval click generates the property's default inventory — 180 days of availability entries per room type — instead of asking anyone to enter them by hand." },
+  { n: "03", hop: "Postgres · bulk write", note: "The 180-day set is dumped in a single batched transaction and Postgres remains the only authority on availability." },
+  { n: "04", hop: "Kafka · change stream", note: "The same commit streams the created and updated rows onto the inventory topic, so the index cannot silently miss a property or a rate change." },
+  { n: "05", hop: "Search index + cache", note: "Consumers apply each delta to the city's tiered index and invalidate the affected Redis keys — a newly verified hotel is searchable in near real time, with DB and Elasticsearch converged rather than dual-written." }
+];
+
+const STATES = [
+  { name: "AVAILABLE", via: "steady state" },
+  { name: "SOFT-LOCKED", via: "Redlock + Lua · TTL" },
+  { name: "PAYMENT PENDING", via: "2PC RESERVE" },
+  { name: "CONFIRMED", via: "2PC COMMIT" },
+  { name: "RELEASED", via: "TTL expiry / RELEASE" }
+];
+
+const RBAC = [
+  { role: "SUPER_ADMIN", scope: "All tenants, all regions", inventory: "read / write", approvals: "final approver" },
+  { role: "OPERATIONS", scope: "Assigned properties and regions", inventory: "read / write", approvals: "requests" },
+  { role: "HR", scope: "People records only", inventory: "no access", approvals: "requests + approves own domain" },
+  { role: "SUPPORT", scope: "Bookings for own region", inventory: "read only", approvals: "no approval rights" }
+];
+
+const RBAC_TAGS = ["JWT claims", "role-scoped guards", "resource-level checks", "approval state machine", "audit trail"];
+
+const IMPACT = [
+  { figure: "0", label: "credit over-consumption incidents in production" },
+  { figure: "40%", label: "lower search latency on the booking engine" },
+  { figure: "90%+", label: "reduction in search-index lag via Kafka sync" },
+  { figure: "~70%", label: "less UI lag after moving rendering off the main thread" }
+];
+
+const STACK = [
+  { label: "LANGUAGES", value: "TypeScript, Golang, JavaScript" },
+  { label: "BACKEND", value: "Node.js, NestJS, Next.js" },
+  { label: "DATA", value: "PostgreSQL, MongoDB, Prisma, Redis, Elasticsearch" },
+  { label: "MESSAGING", value: "BullMQ, Kafka, gRPC / Protobuf, Socket.io / WebSockets" },
+  { label: "INFRA", value: "Docker, Turborepo, AWS" },
+  { label: "SYSTEM DESIGN", value: "Two-Phase Commit, distributed locking, idempotency, exactly-once processing" }
+];
+
+class Component extends DCLogic {
+  componentDidMount() { this._observe(); }
+  componentDidUpdate() { this._observe(); }
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    clearTimeout(this._st);
+    if (this._onScroll) window.removeEventListener("scroll", this._onScroll);
+  }
+
+  _observe() {
+    const root = this._root;
+    if (!root) return;
+    if (!this._io) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add("landed");
+            this._io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.15 });
+    }
+    root.querySelectorAll("[data-stamp-i]:not(.landed)").forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("landed");
+      else this._io.observe(el);
+    });
+    if (!this._onScroll) {
+      this._onScroll = () => {
+        clearTimeout(this._st);
+        this._st = setTimeout(() => this._observe(), 120);
+      };
+      window.addEventListener("scroll", this._onScroll, { passive: true });
+    }
+  }
+
+  renderVals() {
+    const showAlso = this.props.showAlsoOnLedger !== false;
+    return {
+      groups: GROUPS,
+      showAlso: showAlso,
+      impact: IMPACT,
+      gateways: GATEWAYS,
+      otaFlow: OTA_FLOW,
+      cmsFlow: CMS_FLOW,
+      tiers: TIERS,
+      states: STATES,
+      rbac: RBAC,
+      rbacTags: RBAC_TAGS,
+      rootRef: this._setRoot || (this._setRoot = (el) => { this._root = el; }),
+      tally: String(ITEMS.length + (showAlso ? 3 : 0)),
+      stack: STACK
+    };
+  }
+}
+</script>
+</body>
+</html>
